@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewData["Title"] = "PaginationView";
+ }
+
+ @model IEnumerable<Pagination.Models.Product>
+@{
+    ViewBag.Title = "Products";
+}
+
+
+<h1>PaginationView</h1>
+
+<h2>Products</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Productname</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var product in Model)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.ProductName</td>
+                <td>product.price</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="pagination">
+    @if(ViewBag.CurrentPage > 1)
+    {
+        <a href ="@Url.Action("Index", new {page = ViewBag.CurrentPage -1})"> Previous</a>
+    }
+    @for (int i =1; i <= ViewBag.TotalPages; i++)
+    {
+        if(i == ViewBag.CurrentPage)
+        {
+            <span>@i
+            </span>
+        }
+        else
+        {
+            <a href="@Url.Action("Index",new{ page =i })">@i</a>
+        }
+    }
+
+    @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+    {
+        <a href="@Url.Action("Index", new{page = ViewBag.CurrentPage +1})">Next</a>
+    }
+</div>
